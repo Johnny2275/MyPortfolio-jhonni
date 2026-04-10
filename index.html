@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JHONNI</title>
+    <meta
+      name="description"
+      content="Personal portfolio website showcasing projects, skills, and contact information."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .project-card.featured {
+        border: 2px solid #6366f1;
+        position: relative;
+      }
+      .project-tag {
+        display: inline-block;
+        background: #6366f1;
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 2px 10px;
+        border-radius: 99px;
+        margin-bottom: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 0.75rem 0;
+      }
+      .tech-stack span {
+        background: #f1f5f9;
+        color: #475569;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 2px 10px;
+        border-radius: 99px;
+      }
+      .card-actions {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container nav">
+        <a href="#" class="brand">JHONNI</a>
+        <button class="menu-btn" aria-label="Toggle menu">☰</button>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <p class="badge">Open to opportunities</p>
+        <h1>Hi, I'm <span>JHONNI</span></h1>
+        <p class="hero-copy">
+          I craft web solutions that turn ideas into impactful digital experiences, blending creativity with code to empower communities.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">See Projects</a>
+          <a class="btn btn-secondary" href="#contact">Contact Me</a>
+        </div>
+      </section>
+
+      <section id="about" class="section container">
+        <h2>About Me</h2>
+        <p>
+          Hello, I'm Jhonni. My journey into web development began with curiosity about how websites work, and it quickly grew into a passion for creating tools that make life easier and more connected.
+        </p>
+        <p>
+          I believe technology should be accessible and empowering. That's why I focus on building projects that solve real problems — from managing finances to organizing tasks.
+        </p>
+        <p>
+          Beyond coding, I'm deeply interested in <strong>AI automation</strong> and <strong>digital skills for African builders</strong>, aiming to contribute to a future where innovation is inclusive and transformative.
+        </p>
+      </section>
+
+      <section id="projects" class="section container">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <p>A few things I've built recently.</p>
+        </div>
+        <div id="project-grid" class="project-grid">
+
+          <!-- Featured: MyCrib -->
+          <div class="project-card featured">
+            <span class="project-tag">Featured</span>
+            <h3>MyCrib.ng</h3>
+            <p>Find Your Perfect Space in Nigeria — a real estate platform helping Nigerians discover, list, and secure rental and buy properties with ease.</p>
+            <div class="tech-stack">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>Firebase</span>
+            </div>
+            <div class="card-actions">
+              <a href="https://mycrib-ng.web.app/" class="btn btn-primary" target="_blank">Live Demo</a>
+              <a href="#" class="btn btn-secondary">Repository</a>
+            </div>
+          </div>
+
+
+          <!-- TellerFlow AI Blueprint -->
+          <div class="project-card featured">
+            <span class="project-tag">New</span>
+            <h3>TellerFlow AI Blueprint</h3>
+            <p>A practical guide and checklist generator for building a bank teller automation assistant focused on speed, accuracy, and compliance.</p>
+            <div class="card-actions">
+              <a href="teller-automation.html" class="btn btn-primary">Open Blueprint</a>
+              <a href="#contact" class="btn btn-secondary">Build With Me</a>
+            </div>
+          </div>
+
+          <!-- Personal Finance Tracker -->
+          <div class="project-card">
+            <h3>Personal Finance Tracker</h3>
+            <p>Helping people visualize their money habits with clear charts and insights.</p>
+            <div class="card-actions">
+              <a href="finance-tracker.html" class="btn btn-primary">Live Demo</a>
+              <a href="#" class="btn btn-secondary">Repository</a>
+            </div>
+          </div>
+
+          <!-- Task Management App -->
+          <div class="project-card">
+            <h3>Task Management App</h3>
+            <p>Making productivity less overwhelming with a simple, Kanban-style workflow.</p>
+            <div class="card-actions">
+              <a href="task-manager.html" class="btn btn-primary">Live Demo</a>
+              <a href="#" class="btn btn-secondary">Repository</a>
+            </div>
+          </div>
+
+          <!-- Weather Dashboard -->
+          <div class="project-card">
+            <h3>Weather Dashboard</h3>
+            <p>Turning raw data into everyday decisions with forecasts and search history.</p>
+            <div class="card-actions">
+              <a href="weather-dashboard.html" class="btn btn-primary">Live Demo</a>
+              <a href="#" class="btn btn-secondary">Repository</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="skills" class="section container">
+        <h2>Skills</h2>
+        <p>I use these tools and technologies to bring ideas to life:</p>
+        <ul class="skills-list">
+          <li>HTML5 & CSS3/Tailwind — building responsive layouts</li>
+          <li>JavaScript / TypeScript — adding interactivity and scalability</li>
+          <li>React / Next.js — creating fast, modern interfaces</li>
+          <li>Node.js & Python — powering applications with reliable logic</li>
+          <li>Git / GitHub — collaborating and managing projects effectively</li>
+        </ul>
+      </section>
+
+      <section id="contact" class="section container">
+        <h2>Contact</h2>
+        <p>Let's collaborate — whether it's a project idea, mentorship, or partnership, I'd love to hear from you.</p>
+        <form class="contact-form" action="https://formspree.io/f/xojpylja" method="POST">
+          <label>
+            Name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>© <span id="year"></span> JHONNI</p>
+        <a href="https://linkedin.com/in/john-nwafor-359a31131" target="_blank">LinkedIn</a>
+        <a href="https://x.com/deyoung166" target="_blank">X (Twitter)</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
