@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TellerFlow AI Blueprint</title>
+    <meta
+      name="description"
+      content="A practical blueprint for building a teller automation AI assistant for speed, compliance, and customer service quality."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .blueprint {
+        max-width: 900px;
+        margin: 2.5rem auto;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.25rem;
+      }
+      .blueprint h1,
+      .blueprint h2,
+      .blueprint h3 {
+        margin-top: 0;
+      }
+      .blueprint p,
+      .blueprint li {
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem;
+        background: #0d1428;
+      }
+      .prompt-box {
+        border: 1px solid rgba(110, 168, 254, 0.5);
+        border-radius: 12px;
+        padding: 1rem;
+        background: rgba(110, 168, 254, 0.08);
+      }
+      textarea,
+      select,
+      input {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: #0a0f1e;
+        color: var(--text);
+        border-radius: 10px;
+        padding: 0.7rem;
+        font-family: inherit;
+      }
+      .tool {
+        display: grid;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+      .output {
+        min-height: 110px;
+        white-space: pre-wrap;
+        border: 1px dashed var(--border);
+        border-radius: 10px;
+        padding: 0.75rem;
+      }
+      .actions {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .back {
+        display: inline-block;
+        margin: 1.25rem auto 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="blueprint">
+        <p class="badge">Automation AI Plan</p>
+        <h1>TellerFlow AI: Work Faster, Stay Accurate</h1>
+        <p>
+          This page gives you a practical structure to build an AI assistant for teller work: customer intake,
+          transaction checklists, compliance reminders, and end-of-day handover notes.
+        </p>
+
+        <h2>What this AI should do</h2>
+        <div class="grid">
+          <article class="panel">
+            <h3>1) Pre-Transaction Guidance</h3>
+            <ul>
+              <li>Ask for transaction type and amount.</li>
+              <li>Show required documents before processing.</li>
+              <li>Flag limits and approval thresholds.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>2) Real-Time Checklist</h3>
+            <ul>
+              <li>Generate a step-by-step teller checklist.</li>
+              <li>Include verification, counting, and confirmation steps.</li>
+              <li>Reduce missed steps during rush hours.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>3) Compliance Guardrails</h3>
+            <ul>
+              <li>Prompt for KYC/AML checks based on transaction risk.</li>
+              <li>Remind when supervisor override is required.</li>
+              <li>Generate a short audit-ready note.</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>4) Shift Reporting</h3>
+            <ul>
+              <li>Summarize pending issues before handover.</li>
+              <li>List unusual transactions and actions taken.</li>
+              <li>Prepare a clean end-of-day report.</li>
+            </ul>
+          </article>
+        </div>
+
+        <h2>Starter Prompt Template</h2>
+        <div class="prompt-box">
+          <p>
+            "You are a bank teller assistant. For each request, provide: (1) required checks, (2) step-by-step
+            process, (3) compliance alerts, (4) customer-friendly response text, and (5) end note for audit logs."
+          </p>
+        </div>
+
+        <h2>Quick Checklist Generator</h2>
+        <p>
+          Use this mini tool to draft your process quickly. You can copy the output into your preferred AI app.
+        </p>
+        <div class="tool">
+          <label>
+            Transaction Type
+            <select id="txnType">
+              <option>Cash Deposit</option>
+              <option>Cash Withdrawal</option>
+              <option>Account Transfer</option>
+              <option>Cheque Deposit</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            Amount Tier
+            <select id="tier">
+              <option>Low (Routine)</option>
+              <option>Medium (Review)</option>
+              <option>High (Supervisor + Enhanced Checks)</option>
+            </select>
+          </label>
+          <label>
+            Special Notes
+            <input id="notes" type="text" placeholder="e.g., customer in a hurry, new account, damaged ID" />
+          </label>
+          <div class="actions">
+            <button class="btn btn-primary" id="buildBtn" type="button">Generate Checklist</button>
+            <button class="btn btn-secondary" id="copyBtn" type="button">Copy Output</button>
+          </div>
+          <div class="output" id="result" aria-live="polite"></div>
+        </div>
+
+        <a class="btn btn-secondary back" href="index.html">Back to Portfolio</a>
+      </section>
+    </main>
+
+    <script>
+      const buildBtn = document.getElementById('buildBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const result = document.getElementById('result');
+
+      function buildChecklist() {
+        const type = document.getElementById('txnType').value;
+        const tier = document.getElementById('tier').value;
+        const notes = document.getElementById('notes').value.trim() || 'None';
+
+        result.textContent = `TELLER AI CHECKLIST\n\nTransaction: ${type}\nRisk Tier: ${tier}\nSpecial Notes: ${notes}\n\n1. Confirm customer identity and account match.\n2. Verify transaction form and captured details.\n3. Check amount thresholds and approval requirements.\n4. Run KYC/AML prompts based on risk tier.\n5. Execute transaction and confirm posted balance.\n6. Repeat key details to customer for confirmation.\n7. Save short audit note with actions + exceptions.`;
+      }
+
+      buildBtn.addEventListener('click', buildChecklist);
+      copyBtn.addEventListener('click', async () => {
+        if (!result.textContent.trim()) {
+          buildChecklist();
+        }
+        try {
+          await navigator.clipboard.writeText(result.textContent);
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy Output';
+          }, 1200);
+        } catch {
+          copyBtn.textContent = 'Copy failed';
+        }
+      });
+
+      buildChecklist();
+    </script>
+  </body>
+</html>
