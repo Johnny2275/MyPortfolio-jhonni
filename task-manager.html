@@ -1,0 +1,354 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Management App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07080f;
+      --panel: #0e1019;
+      --purple: #a78bfa;
+      --purple-dim: rgba(167,139,250,0.12);
+      --text: #f0f0ff;
+      --muted: #7070a0;
+      --border: #1e1e32;
+      --todo: #3b82f6;
+      --doing: #f59e0b;
+      --done: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 20%, rgba(167,139,250,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 80%, rgba(16,185,129,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(7,8,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      color: var(--purple);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 10rem 5% 4rem;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--purple-dim);
+      border: 1px solid rgba(167,139,250,0.25);
+      color: var(--purple);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    h1 span { color: var(--purple); }
+    .hero-desc {
+      max-width: 50ch;
+      margin: 0 auto 2.5rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn {
+      text-decoration: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--purple);
+      color: #07080f;
+      box-shadow: 0 0 30px rgba(167,139,250,0.3);
+    }
+    .btn-primary:hover { box-shadow: 0 0 40px rgba(167,139,250,0.5); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* Kanban Board */
+    .kanban-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 5% 6rem;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .column {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.2rem;
+    }
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .col-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .col-count {
+      margin-left: auto;
+      background: var(--border);
+      color: var(--muted);
+      font-size: 0.72rem;
+      padding: 1px 7px;
+      border-radius: 999px;
+    }
+    .task-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      transition: border-color 0.2s;
+    }
+    .task-card:hover { border-color: rgba(167,139,250,0.3); }
+    .task-priority {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 999px;
+      margin-bottom: 0.4rem;
+    }
+    .high { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .medium { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .low { background: rgba(16,185,129,0.15); color: #10b981; }
+
+    /* Features */
+    .features {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 5% 8rem;
+    }
+    .features h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .feature-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(167,139,250,0.4); transform: translateY(-3px); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .feature-title { font-family: 'Outfit', sans-serif; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--purple); text-decoration: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .kanban-board { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-brand">JHONNI</a>
+    <a href="index.html#projects" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <section class="hero">
+    <span class="tag">✅ Productivity Tool</span>
+    <h1>Get Things Done<br /><span>Without the Chaos</span></h1>
+    <p class="hero-desc">A Kanban-style task manager that helps you organize work by priority and status — simple, visual, and distraction-free.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary">Live Demo</a>
+      <a href="#" class="btn btn-ghost">View Code</a>
+    </div>
+  </section>
+
+  <div class="kanban-section">
+    <div class="kanban-board">
+      <div class="column">
+        <div class="col-header">
+          <span class="col-dot" style="background:#3b82f6"></span>
+          To Do
+          <span class="col-count">3</span>
+        </div>
+        <div class="task-card">
+          <span class="task-priority high">High</span>
+          <div>Design new homepage layout</div>
+        </div>
+        <div class="task-card">
+          <span class="task-priority medium">Medium</span>
+          <div>Write project documentation</div>
+        </div>
+        <div class="task-card">
+          <span class="task-priority low">Low</span>
+          <div>Update README file</div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="col-header">
+          <span class="col-dot" style="background:#f59e0b"></span>
+          In Progress
+          <span class="col-count">2</span>
+        </div>
+        <div class="task-card">
+          <span class="task-priority high">High</span>
+          <div>Build authentication system</div>
+        </div>
+        <div class="task-card">
+          <span class="task-priority medium">Medium</span>
+          <div>Fix mobile responsiveness</div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="col-header">
+          <span class="col-dot" style="background:#10b981"></span>
+          Done
+          <span class="col-count">3</span>
+        </div>
+        <div class="task-card">
+          <span class="task-priority low">Low</span>
+          <div>Set up project folder structure</div>
+        </div>
+        <div class="task-card">
+          <span class="task-priority medium">Medium</span>
+          <div>Create wireframes</div>
+        </div>
+        <div class="task-card">
+          <span class="task-priority high">High</span>
+          <div>Define project requirements</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="features">
+    <h2>What It Does</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🗂️</div>
+        <div class="feature-title">Kanban Board</div>
+        <div class="feature-desc">Organize tasks visually across To Do, In Progress, and Done columns.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏷️</div>
+        <div class="feature-title">Priority Labels</div>
+        <div class="feature-desc">Tag tasks as High, Medium, or Low priority so you always know what to tackle first.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖱️</div>
+        <div class="feature-title">Drag & Drop</div>
+        <div class="feature-desc">Move tasks between columns effortlessly with intuitive drag and drop.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Responsive</div>
+        <div class="feature-desc">Works perfectly on both desktop and mobile so you stay productive anywhere.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built by <a href="index.html">JHONNI</a> · Task Management App</p>
+  </footer>
+</body>
+</html>
