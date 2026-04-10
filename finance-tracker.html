@@ -1,0 +1,343 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Finance Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #060910;
+      --panel: #0d1321;
+      --green: #00e5a0;
+      --green-dim: rgba(0,229,160,0.12);
+      --text: #eef2ff;
+      --muted: #7a8aaa;
+      --border: #1a2540;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(6,9,16,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--green);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 5% 4rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--green-dim);
+      border: 1px solid rgba(0,229,160,0.25);
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    h1 span { color: var(--green); }
+
+    .hero-desc {
+      max-width: 52ch;
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--green);
+      color: #060910;
+      box-shadow: 0 0 30px rgba(0,229,160,0.3);
+    }
+    .btn-primary:hover { box-shadow: 0 0 40px rgba(0,229,160,0.5); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* Mock dashboard */
+    .mock-dashboard {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 5% 6rem;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .dashboard-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .stat-value { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 700; }
+    .stat-value.green { color: var(--green); }
+    .stat-value.red { color: #ff6b6b; }
+    .stat-value.blue { color: #6ea8fe; }
+
+    .chart-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+      height: 120px;
+    }
+    .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    .bar {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      transition: opacity 0.2s;
+    }
+    .bar.income { background: var(--green); opacity: 0.85; }
+    .bar.expense { background: #ff6b6b; opacity: 0.75; }
+    .bar-month { font-size: 0.7rem; color: var(--muted); }
+
+    /* Features */
+    .features {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 5% 8rem;
+    }
+    .features h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .feature-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(0,229,160,0.4); transform: translateY(-3px); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .feature-title { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.5rem; }
+    .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--green); text-decoration: none; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-brand">JHONNI</a>
+    <a href="index.html#projects" class="nav-back">← Back to Portfolio</a>
+  </nav>
+
+  <section class="hero">
+    <span class="tag">💰 Finance Tool</span>
+    <h1>Track Your Money,<br /><span>Own Your Future</span></h1>
+    <p class="hero-desc">A personal finance tracker that helps you visualize income, expenses, and savings with clear charts and actionable insights.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary">Live Demo</a>
+      <a href="#" class="btn btn-ghost">View Code</a>
+    </div>
+  </section>
+
+  <div class="mock-dashboard">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Monthly Income</div>
+        <div class="stat-value green">₦320,000</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Expenses</div>
+        <div class="stat-value red">₦185,000</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Net Savings</div>
+        <div class="stat-value blue">₦135,000</div>
+      </div>
+    </div>
+    <div class="dashboard-card">
+      <div class="chart-label">Income vs Expenses — Last 6 Months</div>
+      <div class="bars">
+        <div class="bar-wrap"><div class="bar income" style="height:70px"></div><div class="bar-month">Jan</div></div>
+        <div class="bar-wrap"><div class="bar expense" style="height:50px"></div><div class="bar-month">Jan</div></div>
+        <div class="bar-wrap"><div class="bar income" style="height:90px"></div><div class="bar-month">Feb</div></div>
+        <div class="bar-wrap"><div class="bar expense" style="height:60px"></div><div class="bar-month">Feb</div></div>
+        <div class="bar-wrap"><div class="bar income" style="height:75px"></div><div class="bar-month">Mar</div></div>
+        <div class="bar-wrap"><div class="bar expense" style="height:55px"></div><div class="bar-month">Mar</div></div>
+        <div class="bar-wrap"><div class="bar income" style="height:100px"></div><div class="bar-month">Apr</div></div>
+        <div class="bar-wrap"><div class="bar expense" style="height:65px"></div><div class="bar-month">Apr</div></div>
+        <div class="bar-wrap"><div class="bar income" style="height:85px"></div><div class="bar-month">May</div></div>
+        <div class="bar-wrap"><div class="bar expense" style="height:58px"></div><div class="bar-month">May</div></div>
+        <div class="bar-wrap"><div class="bar income" style="height:110px"></div><div class="bar-month">Jun</div></div>
+        <div class="bar-wrap"><div class="bar expense" style="height:70px"></div><div class="bar-month">Jun</div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="features">
+    <h2>What It Does</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Visual Charts</div>
+        <div class="feature-desc">See your spending patterns clearly with bar and pie charts updated in real time.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <div class="feature-title">Expense Logging</div>
+        <div class="feature-desc">Quickly log income and expenses by category — food, rent, transport, and more.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Savings Goals</div>
+        <div class="feature-desc">Set monthly savings targets and track your progress toward financial freedom.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">Monthly Summary</div>
+        <div class="feature-desc">Get a clear breakdown of every month so you always know where your money goes.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built by <a href="index.html">JHONNI</a> · Personal Finance Tracker</p>
+  </footer>
+</body>
+</html>
