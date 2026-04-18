@@ -4,16 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JHONNI</title>
+
     <meta
       name="description"
       content="Personal portfolio website showcasing projects, skills, and contact information."
     />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="styles.css" />
 
     <style>
@@ -64,14 +67,10 @@
         gap: 0.65rem;
       }
 
-      .project-copy p {
-        margin: 0;
-      }
-
       .project-highlights {
         margin: 0;
         padding-left: 1rem;
-        color: #b4bfdc;
+        color: var(--muted);
       }
 
       .footer-links {
@@ -83,15 +82,20 @@
   </head>
 
   <body>
+    <!-- HEADER -->
     <header class="site-header">
       <nav class="container nav">
         <a href="#" class="brand">JHONNI</a>
+
         <div class="nav-actions">
-  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark and light mode">
-    🌙
-  </button>
-  <button class="menu-btn" aria-label="Toggle menu">☰</button>
-</div>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            🌙
+          </button>
+          <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+            ☰
+          </button>
+        </div>
+
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
@@ -102,38 +106,45 @@
     </header>
 
     <main>
+      <!-- HERO -->
       <section class="hero container">
         <p class="badge">Open to opportunities</p>
         <h1>Hi, I'm <span>JHONNI</span></h1>
+
         <p class="hero-copy">
           I craft web solutions that turn ideas into impactful digital experiences,
           blending creativity with code to empower communities.
         </p>
+
         <div class="hero-actions">
           <a class="btn btn-primary" href="#projects">See Projects</a>
           <a class="btn btn-secondary" href="#contact">Contact Me</a>
         </div>
       </section>
 
+      <!-- ABOUT -->
       <section id="about" class="section container">
         <h2>About Me</h2>
+
         <p>
           Hello, I'm Jhonni. My journey into web development began with curiosity
           about how websites work, and it quickly grew into a passion for creating
           tools that make life easier and more connected.
         </p>
+
         <p>
           I believe technology should be accessible and empowering. That's why I
           focus on building projects that solve real problems — from managing
           finances to organizing tasks.
         </p>
+
         <p>
           Beyond coding, I'm deeply interested in <strong>AI automation</strong>
-          and <strong>digital skills for African builders</strong>, aiming to
-          contribute to a future where innovation is inclusive and transformative.
+          and <strong>digital skills for African builders</strong>.
         </p>
       </section>
 
+      <!-- PROJECTS -->
       <section id="projects" class="section container">
         <div class="section-head">
           <h2>Projects</h2>
@@ -141,152 +152,121 @@
         </div>
 
         <div id="project-grid" class="project-grid">
+
+          <!-- Project -->
           <article class="project-card featured">
             <span class="project-tag">Featured</span>
             <h3>MyCrib.ng</h3>
-            <div class="project-copy">
-              <p>
-                Find Your Perfect Space in Nigeria — a real estate platform helping
-                Nigerians discover, list, and secure rental and buy properties with ease.
-              </p>
-            </div>
+            <p>
+              Real estate platform helping Nigerians find and secure properties.
+            </p>
+
             <div class="tech-stack">
               <span>HTML</span>
               <span>CSS</span>
               <span>JavaScript</span>
               <span>Firebase</span>
             </div>
+
             <div class="card-actions">
               <a href="https://mycrib-ng.web.app/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Live Demo</a>
               <a href="#" class="btn btn-secondary">Repository</a>
             </div>
           </article>
 
+          <!-- Sales Tracker -->
           <article class="project-card featured">
             <span class="project-tag">Featured</span>
             <h3>Daily Sales Tracker</h3>
-            <div class="project-copy">
-              <p>
-                A practical web app built to help small business owners record daily
-                sales, track revenue, and export transactions.
-              </p>
-              <ul class="project-highlights">
-                <li>Real-time summaries</li>
-                <li>Search and month filtering</li>
-                <li>Naira currency formatting</li>
-                <li>Offline-ready using Local Storage</li>
-              </ul>
-            </div>
+
+            <p>
+              A web app to track daily sales, revenue, and export transactions.
+            </p>
+
+            <ul class="project-highlights">
+              <li>Real-time summaries</li>
+              <li>Search & filtering</li>
+              <li>Naira formatting</li>
+              <li>Offline support</li>
+            </ul>
+
             <div class="tech-stack">
               <span>HTML</span>
               <span>CSS</span>
               <span>JavaScript</span>
               <span>LocalStorage</span>
             </div>
+
             <div class="card-actions">
               <a href="https://johnny2275.github.io/SALES-TRACKER/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Live Demo</a>
               <a href="#" class="btn btn-secondary">Repository</a>
             </div>
           </article>
 
-          <article class="project-card featured">
-            <span class="project-tag">New</span>
+          <!-- Teller -->
+          <article class="project-card">
             <h3>TellerFlow AI Blueprint</h3>
-            <div class="project-copy">
-              <p>
-                A practical guide and checklist generator for building a bank teller
-                automation assistant focused on speed, accuracy, and compliance.
-              </p>
-            </div>
+            <p>AI-powered automation assistant for banking workflows.</p>
+
             <div class="card-actions">
-              <a href="teller-automation.html" class="btn btn-primary">Open Blueprint</a>
-              <a href="#contact" class="btn btn-secondary">Build With Me</a>
+              <a href="teller-automation.html" class="btn btn-primary">Open</a>
+              <a href="#contact" class="btn btn-secondary">Contact</a>
             </div>
           </article>
 
+          <!-- More -->
           <article class="project-card">
-            <h3>Personal Finance Tracker</h3>
-            <div class="project-copy">
-              <p>
-                Helping people visualize their money habits with clear charts and insights.
-              </p>
-            </div>
-            <div class="card-actions">
-              <a href="finance-tracker.html" class="btn btn-primary">Live Demo</a>
-              <a href="#" class="btn btn-secondary">Repository</a>
-            </div>
+            <h3>Finance Tracker</h3>
+            <p>Track spending and visualize money habits.</p>
           </article>
 
           <article class="project-card">
-            <h3>Task Management App</h3>
-            <div class="project-copy">
-              <p>
-                Making productivity less overwhelming with a simple, Kanban-style workflow.
-              </p>
-            </div>
-            <div class="card-actions">
-              <a href="task-manager.html" class="btn btn-primary">Live Demo</a>
-              <a href="#" class="btn btn-secondary">Repository</a>
-            </div>
+            <h3>Task Manager</h3>
+            <p>Simple Kanban productivity tool.</p>
           </article>
 
           <article class="project-card">
-            <h3>Weather Dashboard</h3>
-            <div class="project-copy">
-              <p>
-                Turning raw data into everyday decisions with forecasts and search history.
-              </p>
-            </div>
-            <div class="card-actions">
-              <a href="weather-dashboard.html" class="btn btn-primary">Live Demo</a>
-              <a href="#" class="btn btn-secondary">Repository</a>
-            </div>
+            <h3>Weather App</h3>
+            <p>Forecast dashboard with search history.</p>
           </article>
+
         </div>
       </section>
 
+      <!-- SKILLS -->
       <section id="skills" class="section container">
         <h2>Skills</h2>
-        <p>I use these tools and technologies to bring ideas to life:</p>
+
         <ul class="skills-list">
-          <li>HTML5 &amp; CSS3/Tailwind — building responsive layouts</li>
-          <li>JavaScript / TypeScript — adding interactivity and scalability</li>
-          <li>React / Next.js — creating fast, modern interfaces</li>
-          <li>Node.js &amp; Python — powering applications with reliable logic</li>
-          <li>Git / GitHub — collaborating and managing projects effectively</li>
+          <li>HTML & CSS</li>
+          <li>JavaScript</li>
+          <li>React / Next.js</li>
+          <li>Node.js</li>
+          <li>Git & GitHub</li>
         </ul>
       </section>
 
+      <!-- CONTACT -->
       <section id="contact" class="section container">
         <h2>Contact</h2>
-        <p>
-          Let's collaborate — whether it's a project idea, mentorship, or partnership,
-          I'd love to hear from you.
-        </p>
+
         <form class="contact-form" action="https://formspree.io/f/xojpylja" method="POST">
-          <label>
-            Name
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Message
-            <textarea name="message" rows="5" required></textarea>
-          </label>
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <textarea name="message" rows="5" placeholder="Message" required></textarea>
           <button class="btn btn-primary" type="submit">Send</button>
         </form>
       </section>
     </main>
 
+    <!-- FOOTER -->
     <footer class="site-footer">
       <div class="container footer-content">
         <p>© <span id="year"></span> JHONNI</p>
+
         <div class="footer-links">
-          <a href="https://linkedin.com/in/john-nwafor-359a31131" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://x.com/deyoung166" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+          <a href="https://x.com" target="_blank">Twitter</a>
         </div>
       </div>
     </footer>
