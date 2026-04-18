@@ -7,6 +7,15 @@
   --primary-strong: #4f8cff;
   --border: #202846;
 }
+body.light-mode {
+  --bg: #f5f7ff;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --primary: #4f46e5;
+  --primary-strong: #2563eb;
+  --border: #dbe3f0;
+}
 
 * {
   box-sizing: border-box;
