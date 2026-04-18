@@ -7,6 +7,7 @@
   --primary-strong: #4f8cff;
   --border: #202846;
 }
+
 body.light-mode {
   --bg: #f5f7ff;
   --panel: #ffffff;
@@ -15,29 +16,6 @@ body.light-mode {
   --primary: #4f46e5;
   --primary-strong: #2563eb;
   --border: #dbe3f0;
-}
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.theme-toggle {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 10px;
-  padding: 0.45rem 0.7rem;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-body.light-mode .theme-toggle:hover {
-  background: rgba(15, 23, 42, 0.06);
-}
-
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.06);
 }
 
 * {
@@ -55,6 +33,11 @@ body {
   background: radial-gradient(circle at top, #151d38, var(--bg) 40%);
   color: var(--text);
   line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.light-mode {
+  background: radial-gradient(circle at top, #e9efff, var(--bg) 45%);
 }
 
 .container {
@@ -69,6 +52,11 @@ body {
   backdrop-filter: blur(8px);
   background: rgba(11, 16, 32, 0.75);
   border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+body.light-mode .site-header {
+  background: rgba(245, 247, 255, 0.82);
 }
 
 .nav {
@@ -85,13 +73,42 @@ body {
   letter-spacing: 0.4px;
 }
 
-.menu-btn {
-  display: none;
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menu-btn,
+.theme-toggle {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
-  border-radius: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.menu-btn {
+  display: none;
   padding: 0.4rem 0.55rem;
+}
+
+.theme-toggle {
+  padding: 0.45rem 0.7rem;
+  font-size: 1rem;
+}
+
+.theme-toggle:hover,
+.menu-btn:hover,
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.light-mode .theme-toggle:hover,
+body.light-mode .menu-btn:hover,
+body.light-mode .btn-secondary:hover {
+  background: rgba(15, 23, 42, 0.06);
 }
 
 .nav-links {
@@ -105,6 +122,7 @@ body {
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
+  transition: color 0.25s ease;
 }
 
 .nav-links a:hover {
@@ -157,6 +175,11 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.2s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
 }
 
 .btn-primary {
@@ -206,6 +229,10 @@ body {
   border-radius: 999px;
 }
 
+body.light-mode .project-grid::-webkit-scrollbar-thumb {
+  background: #c4d0e8;
+}
+
 .project-grid::-webkit-scrollbar-track {
   background: transparent;
 }
@@ -222,6 +249,11 @@ body {
   max-width: 320px;
   flex: 0 0 320px;
   scroll-snap-align: start;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
 }
 
 .project-card h3 {
@@ -259,6 +291,7 @@ body {
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
   color: var(--muted);
+  background: transparent;
 }
 
 .contact-form {
@@ -279,6 +312,12 @@ body {
   color: var(--text);
   border-radius: 10px;
   padding: 0.7rem;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea {
+  background: #ffffff;
 }
 
 .site-footer {
@@ -317,10 +356,21 @@ body {
     flex-direction: column;
     padding: 0.9rem;
     min-width: 180px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+
+  body.light-mode .nav-links {
+    background: #ffffff;
   }
 
   .nav-links.open {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .hero {
@@ -332,16 +382,4 @@ body {
     max-width: 280px;
     flex-basis: 280px;
   }
-  .nav-links {
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
-}
-
-.nav-links.open {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
 }
