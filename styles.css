@@ -219,7 +219,7 @@ body.light-mode .btn-secondary:hover {
   gap: 1rem;
 }
 
-/* Featured slider */
+/* Project slider */
 .project-grid {
   display: flex;
   flex-wrap: nowrap;
@@ -249,21 +249,10 @@ body.light-mode .project-grid::-webkit-scrollbar-thumb {
   background: transparent;
 }
 
-.project-card,
-.mini-project-card {
+.project-card {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 18px;
-  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-}
-
-.project-card:hover,
-.mini-project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
-}
-
-.project-card {
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -272,6 +261,12 @@ body.light-mode .project-grid::-webkit-scrollbar-thumb {
   max-width: 340px;
   flex: 0 0 340px;
   scroll-snap-align: start;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
 }
 
 .project-card.featured {
@@ -281,9 +276,10 @@ body.light-mode .project-grid::-webkit-scrollbar-thumb {
 .project-image {
   width: 100%;
   height: 180px;
+  object-fit: cover;
   border-radius: 14px;
   border: 1px solid var(--border);
-  overflow: hidden;
+  display: block;
 }
 
 .placeholder-image {
@@ -349,32 +345,6 @@ body.light-mode .project-grid::-webkit-scrollbar-thumb {
   flex-wrap: wrap;
 }
 
-/* More projects */
-.more-projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.mini-project-card {
-  padding: 1.1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.mini-project-card h3,
-.project-card h3,
-.skill-block h3 {
-  margin: 0;
-  line-height: 1.3;
-}
-
-.mini-project-card p {
-  margin: 0;
-  color: var(--muted);
-}
-
 /* Skills */
 .skills-columns {
   display: grid;
@@ -387,6 +357,11 @@ body.light-mode .project-grid::-webkit-scrollbar-thumb {
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 1.1rem;
+}
+
+.skill-block h3 {
+  margin: 0;
+  line-height: 1.3;
 }
 
 .skills-list {
@@ -478,7 +453,7 @@ body.light-mode .contact-form textarea {
   text-decoration: none;
 }
 
-/* Reveal */
+/* Reveal animation */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -491,7 +466,6 @@ body.light-mode .contact-form textarea {
 }
 
 @media (max-width: 980px) {
-  .more-projects-grid,
   .skills-columns,
   .contact-layout {
     grid-template-columns: 1fr;
